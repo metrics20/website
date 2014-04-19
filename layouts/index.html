@@ -19,16 +19,17 @@
         </div>
       </div>
 
+      <p>
       With metrics 2.0, we aim for <b>self-describing</b>, <b>standardized</b> metrics using <b>orthogonal tags</b> for every dimension.
       <br/><br/>By adopting metrics 2.0 you can:
       <ul>
         <li>increase compatibility between tools</li>
         <li>get immediate understanding of metrics</li>
-        <li>obtain graphs, plots, dashboards and alerting expressions with minimal hassle</li>
+        <li>build graphs, plots, dashboards and alerting expressions with minimal hassle</li>
       </ul>
 
-      <h2>Overview</h2>
       Let's look at an example of the conceptual representation of metrics (identifiers for timeseries, and their metadata) in different approaches.
+      </p>
       <div class="row">
         <div class="col-lg-6">
           <h4>Traditional systems</h4>
@@ -36,7 +37,10 @@
 collectd.dfs1.df.srv-node-dfs10.df-complex.used
           </pre>
           <pre>
-diskspace._srv_node_dfs10.byte_used {server: dfs1}
+diskspace._srv_node_dfs10.byte_used
+{
+    server: dfs1
+}
           </pre>
         </div>
         <div class="col-lg-6">
@@ -58,47 +62,69 @@ extrinsic: {
         </div>
       </div>
 
-    <h2>What &amp; Why?</h2>
+      <p>&nbsp;</p>
 
-    Sure, if you have a handfull of metrics, you don't need to think about this and can stick with simple names for your metrics.
-    However, as we grow our number of metrics and/or want to make more sense out of them, we need to be more systematic, and
-    here are the reasons, concepts and their benefits
-    <h4>Retain information, self-describing metrics</h4>
-    Generating timeseries metrics is easy.  Add a statsd call to an app, write to graphite from a cron, or add a plugin to your monitoring agent.  Give it a name and done!
+    <h2>What &amp; Why?</h2>
+    <p>
+    If you have a handfull of metrics, you don't need to think about this and can stick with simple names for your metrics.
+    However, as we grow our number of metrics and/or want to make more sense out of them, we need to be more systematic.
+    <br/>Here are the reasons, concepts and their benefits
+    </p>
+
+    <h3>Retain information, self-describing metrics</h3>
+    <p>
+    Generating timeseries metrics is easy.
+    <br/>Add a statsd call to an app, write to graphite from a cron, or add a plugin to your monitoring agent.  Give it a name and done!
     <br/><i>Not so fast!</i>
-    <br/>How often will someone need this data in visualisations, processing or alerting?  Can you predict?  How often will somebody come across your metric and wonder what it means?  So much information about the metric is available when adding the metric, yet gets removed or dumbed down.
+    <br/>How often will someone need this data in visualisations, processing or alerting?  How quick will they find it?  How often will somebody wonder what the metric means?  So much information about the metric is available when adding the metric, yet gets dumbed down or not included.
     Diving in code and asking around when all you want to do is graph data you know you have, is cumbersome.
     <br/>
-    <b>Metrics 2.0 aims to retain all information so that metrics self-describe themselves</b>.  Transport comments through the metrics pipeline if you need to.
+    <b>Metrics 2.0 aims to retain all information</b> so that metrics self-describe themselves and are more easily found and understood.
+    </p>
 
-    <h4>Standardisation</h4>
-    Standardisation enables compatibility between tools, easier searching for metrics, and automatic conversion (for example the system knows how to display a metric in MB/s if the metric is in kB or kB/m), and more.
+    <h3>Standardisation</h3>
+    <p>
+    Standardisation enables compatibility between tools, easier searching for metrics, automatic data conversion and more.
+    Imagine the ability to swap out monitoring agents without hassle or a dashboard automatically processing data to be in the requested unit.
+    </p>
 
-    <h4>orthogonal tag space</h4>
-    Being limited to strings for metric identifiers (even when modeled in a tree like graphite) is limiting when trying to use several different metrics in the same information need.  There is simply no way to organise an entire tree of metrics from different apps and environments, and still enable correlations and aggregations between different things.  You can't even predict all correlations that somebody might want to do in the future.  Some systems add tags, which help, but only for a handfull of properties.
+    <h3>orthogonal tag space</h3>
+    <p>
+    Being limited to strings for metric identifiers (even when modeled in a tree like graphite) can be very limiting when trying to use several different metrics in the same information need.  There is simply no way to organise an entire tree of metrics from different apps and environments in a way that's optimal and allows all correlations and aggregations.  You can't even predict all correlations that somebody might want to do in the future.  Some systems add tags, which help, but only for a handfull of properties, which diminishes their value.
     <b>A user should be able to corelate on, and aggregate across any chosen dimension[s]</b>, and the only way to enable this, is by using orthogonal dimensions, i.e. a independent tag key/value pairs.
+    </p>
 
-    <h4>Intrinsic vs Extrinsic (or: data vs metadata)</h4>
+    <h3>Intrinsic vs Extrinsic (or: data vs metadata)</h3>
+    <p>
     Intrinsic data is the data that comprises the metric identifier.  Change a value and you get a different series name, nothing new there.
     Sometimes we want to include information about a metric, that's not part of the metric identity
     <b>Extrinsic properties allow to include information about a metric, which might change, without changing the metric identifier</b>.
-    I.e. it's metadata.  You can include where the source of a metric (filename and line number), so you know who to reach out to in case 
-    the metric source goes berzerk or sends bad data.
+    I.e. it's metadata.  Some examples:  You can include the source of a metric (filename and line number), so you know who to contact in case 
+    the metric source goes berzerk.
     You can include which agent the data is coming from, without being forced to recreate graphs when you switch to a different agent.
     You can even include comments if the tags are not sufficient.
+    </p>
 
-    <h4>Automatically build visualisations and processing/alerting rules with minimal work</h4>
-    If metrics describe themselves, and do so in a standardized ways, does that mean that advanced dashboards and processing engines
+    <h3>Automatically build visualisations and processing/alerting rules with minimal work</h3>
+    <p>
+    If metrics describe themselves, and do so in a standardized way, does that mean that advanced dashboards and processing engines
     can leverage this to build visualisations or alerting rules automatically? <i>Yes it does!</i>
     <a href="http://vimeo.github.io/graph-explorer/">Graph-Explorer</a> is a graphite dashboard that does this:
     For any given information need, expressed as a query, it will automatically generate graph definitions and alerting rules, it takes
-    care of looking up the metrics, doing aggregations, grouping and processing (such as unit conversion, scaling, deriving/integrating).
+    care of fetching the metrics matching given conditions, doing aggregations, grouping and processing (such as unit conversion, scaling, deriving/integrating).  It can even automatically fill in the graph title, y-axis labels and legend entries, and apply sensible coloring.
+    </p>
 
-    <h4>There's more!</h4>
-    There's a lot more.
+    <h3>There's more!</h3>
+    <p>
+    There's some more interesting benefits, related to rollups, correctness of visualisations.
+    Check out <a href="/media">media</a> to learn more.
+    </p>
 
-    Call to action!
-As developers of systems that deal with metrics, <b>we need to keep the conversation going</b>
+    <p>&nbsp;</p>
+
+    <h2>Get started!</h2>
+    Check out the <a href="/implementations">existing tools</a>, <a href="/media">watch some presentations</a>,
+    add support for the <a href="/spec">spec</a> in your favorite monitoring tool or <a href="https://groups.google.com/forum/#!forum/metrics20">join the conversation</a>!
 
     {{ template "chrome/footer.html" . }}
 
