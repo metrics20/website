@@ -3,10 +3,53 @@
   <head>
     <meta charset="utf-8">
     <title>Metrics 2.0: an emerging set of standards around metrics</title>
-    {{ template "chrome/meta.html" . }}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://metrics2.org/css/bootstrap.css" media="screen">
+    
+    
+    <script> 
+                    
+     var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-xxxxxxxx-x']);      
+      _gaq.push(['_setDomainName', "metrics20.org"]);
+        _gaq.push(['_setAllowLinker', true]);  
+      _gaq.push(['_trackPageview']);
+                      
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+
   </head>
   <body>
-    {{ template "chrome/header.html" . }}
+        <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">Metrics 2.0</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="http://metrics2.org/spec">Spec</a>
+            </li>
+            <li>
+              <a href="http://metrics2.org/implementations">Implementations</a>
+            </li>
+            <li>
+              <a href="http://metrics2.org/media">media</a>
+            </li>
+            <li>
+              <a href="https://groups.google.com/forum/#!forum/metrics20">Community</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
 
     <div class="container">
 
@@ -117,16 +160,25 @@ extrinsic: {
     <h3>There's more!</h3>
     <p>
     There's some more interesting benefits, related to rollups, correctness of visualisations.
-    Check out <a href="/media">media</a> to learn more.
+    Check out <a href="http://metrics2.org/media">media</a> to learn more.
     </p>
 
     <p>&nbsp;</p>
 
     <h2>Get started!</h2>
-    Check out the <a href="/implementations">existing tools</a>, <a href="/media">watch some presentations</a>,
-    add support for the <a href="/spec">spec</a> in your favorite monitoring tool or <a href="https://groups.google.com/forum/#!forum/metrics20">join the conversation</a>!
+    Check out the <a href="http://metrics2.org/implementations">existing tools</a>, <a href="http://metrics2.org/media">watch some presentations</a>,
+    add support for the <a href="http://metrics2.org/spec">spec</a> in your favorite monitoring tool or <a href="https://groups.google.com/forum/#!forum/metrics20">join the conversation</a>!
 
-    {{ template "chrome/footer.html" . }}
+          <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="list-unstyled">
+              <li class="pull-right"><a href="#top">Back to top</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+
 
     </div>
   </body>

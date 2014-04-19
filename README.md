@@ -1,1 +1,1 @@
-website for metrics20.org
+generated with 'hugo', from master branch

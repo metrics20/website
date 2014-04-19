@@ -3,10 +3,53 @@
   <head>
     <meta charset="utf-8">
       <title>Metrics 2.0: Media</title>
-        {{ template "chrome/meta.html" . }}
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://metrics2.org/css/bootstrap.css" media="screen">
+    
+    
+    <script> 
+                    
+     var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-xxxxxxxx-x']);      
+      _gaq.push(['_setDomainName', "metrics20.org"]);
+        _gaq.push(['_setAllowLinker', true]);  
+      _gaq.push(['_trackPageview']);
+                      
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+
   </head>
   <body>
-    {{ template "chrome/header.html" . }}
+        <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">Metrics 2.0</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="http://metrics2.org/spec">Spec</a>
+            </li>
+            <li>
+              <a href="http://metrics2.org/implementations">Implementations</a>
+            </li>
+            <li>
+              <a href="http://metrics2.org/media">media</a>
+            </li>
+            <li>
+              <a href="https://groups.google.com/forum/#!forum/metrics20">Community</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
         <br/>&nbsp;
         <br/>&nbsp;
@@ -41,7 +84,16 @@ This talk goes in depth.
 
 <iframe src="http://www.slideshare.net/slideshow/embed_code/33141516" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
 
-  {{ template "chrome/footer.html" . }}
+        <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="list-unstyled">
+              <li class="pull-right"><a href="#top">Back to top</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+
 
       </div>
         </body>
