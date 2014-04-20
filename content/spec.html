@@ -21,12 +21,12 @@
 <h3>Metrics 2.0 as a wire format</h3>
 In simple protocols like the carbon protocol, we can serialize the structured metric in a string representation that's compatible with graphite.
 <pre>
-    intrinsic_tags  extrinsic_tags value timestamp
+    tags  meta_tags value timestamp
 </pre>
 <ul>
-    <li>A tag looks like key=val or just val. tags are space separated.  Note double space to separate intrinsic from extrinsic</li>
-    <li>An <b>intrinsic</b> tag contributes to the identity of the metric. If this section changes, we get a new metric</li>
-    <li>An <b>extrinsic</b> tag provides additional information about the metric.  changes in this set doesn't change the metric identity</li>
+    <li>A tag looks like key=val or just val. tags are space separated.  Note double space to separate tags from meta_tags</li>
+    <li>A tag in 'tags', is intrinsic: it contributes to the identity of the metric. If this section changes, we get a new metric identifier</li>
+    <li>A tag in 'meta_tags' is extrinsic: it provides additional information about the metric.  changes in this set doesn't change the metric identity</li>
     <li>There are no specific requirements of order of tags.  For intrinsic tags, pick an order and stick with it, otherwise the metric id will change</li>
     <li>In metrics storage databases we'll typically reference the timeseries by a key. If this is the serialized set of intrinsic tags of the metric2.0, things are clearer when working with the raw data, although you could also use another key and keep an explicit mapping.  As long as you somehow associate the structured data model (see below) with the timeseries</li>
     <li>The words that you'd typically put in your metric identifier, should become tag values</li>
@@ -41,7 +41,7 @@ In simple protocols like the carbon protocol, we can serialize the structured me
 This is how we typically represent metrics 2.0
     <div class="row">
         <div class="col-lg-6">
-          <h4>Without extrinsic tag support</h4>
+          <h4>Standard metric 2.0</h4>
             <pre>
 {
     foo=bar
@@ -50,13 +50,13 @@ This is how we typically represent metrics 2.0
           </pre>
       </div>
       <div class="col-lg-6">
-          <h4>With extrinsic tag support</h4>
+          <h4>Metric 2.0 extended with meta data</h4>
           <pre>
-intrinsic: {
+{
     foo=bar
     unit=B
 }
-extrinsic: {
+meta: {
     something=else
 }
           </pre>

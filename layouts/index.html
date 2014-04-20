@@ -46,7 +46,7 @@ diskspace._srv_node_dfs10.byte_used
         <div class="col-lg-6">
           <h4>Metrics 2.0</h4>
           <pre>
-intrinsic: {
+{
     server=dfs1
     what=diskspace
     mountpoint=/srv/node/dfs10
@@ -54,7 +54,7 @@ intrinsic: {
     type=used
     metric_type=gauge
 }
-extrinsic: {
+meta: {
     agent: diamond,
     processed_by: statsd2
 }
@@ -99,11 +99,12 @@ extrinsic: {
     That dashboard apps can automatically provide dashboards (for example, a mysql dashboard for every server by looking at host=X and service=mysql).  That you can search for metrics on any of their attributes, that you can group them into graphs or aggregate them by any given dimensions (tag keys).
     </p>
 
-    <h3>Intrinsic vs Extrinsic (or: data vs metadata)</h3>
+    <h3>Support for metadata not part of metric identity</h3>
     <p>
-    Intrinsic data is the data that comprises the metric identifier.  Change a value and you get a different series name, nothing new there.
+    Information that comprises the metric identifier, is what we call <i>intrinsic properties</i>.
+    Change a value and you get a different series name, nothing new there.
     Sometimes we want to include information about a metric that's not part of the metric identity.
-    <b>Extrinsic properties allow to include information about a metric, which might change, without changing the metric identifier</b>.
+    <i>Extrinsic properties</i> allow to include information about a metric (in the network proto, in the db, etc), which might change, without changing the metric identifier.
     I.e. it's metadata.  Some examples:  You can include the source of a metric (filename and line number), so you know who to contact in case 
     the metric source goes berserk.
     You can include which agent the data is coming from, without being forced to recreate graphs when you switch to a different agent.
