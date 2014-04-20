@@ -94,10 +94,15 @@ extrinsic: {
     <b>A user should be able to corelate on, and aggregate across any chosen dimension[s]</b>, and the only way to enable this, is by using orthogonal dimensions, i.e. a independent tag key/value pairs.
     </p>
 
+    <h3>this also means...</h3>
+    <p>
+    That dashboard apps can automatically provide dashboards (for example, a mysql dashboard for every server by looking at host=X and service=mysql).  That you can search for metrics on any of their attributes, that you can group them into graphs or aggregate them by any given dimensions (tag keys).
+    </p>
+
     <h3>Intrinsic vs Extrinsic (or: data vs metadata)</h3>
     <p>
     Intrinsic data is the data that comprises the metric identifier.  Change a value and you get a different series name, nothing new there.
-    Sometimes we want to include information about a metric, that's not part of the metric identity
+    Sometimes we want to include information about a metric that's not part of the metric identity.
     <b>Extrinsic properties allow to include information about a metric, which might change, without changing the metric identifier</b>.
     I.e. it's metadata.  Some examples:  You can include the source of a metric (filename and line number), so you know who to contact in case 
     the metric source goes berzerk.
@@ -111,7 +116,7 @@ extrinsic: {
     can leverage this to build visualisations or alerting rules automatically? <i>Yes it does!</i>
     <a href="http://vimeo.github.io/graph-explorer/">Graph-Explorer</a> is a graphite dashboard that does this:
     For any given information need, expressed as a query, it will automatically generate graph definitions and alerting rules, it takes
-    care of fetching the metrics matching given conditions, doing aggregations, grouping and processing (such as unit conversion, scaling, deriving/integrating).  It can even automatically fill in the graph title, y-axis labels and legend entries, and apply sensible coloring.
+    care of fetching the metrics matching given conditions, doing aggregations, grouping and processing (such as unit conversion, scaling, deriving/integrating).  It can even automatically fill in the graph title, y-axis labels and legend entries and apply sensible coloring, by looking at the metric tags and which of them they have in common on a graph vs which set them apart from each other.
     </p>
 
     <h3>There's more!</h3>
