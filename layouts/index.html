@@ -66,7 +66,7 @@ extrinsic: {
 
     <h2>What &amp; Why?</h2>
     <p>
-    If you have a handfull of metrics, you don't need to think about this and can stick with simple names for your metrics.
+    If you have a handful of metrics, you don't need to think about this and can stick with simple names for your metrics.
     However, as we grow our number of metrics and/or want to make more sense out of them, we need to be more systematic.
     <br/>Here are the reasons, concepts and their benefits
     </p>
@@ -76,22 +76,22 @@ extrinsic: {
     Generating timeseries metrics is easy.
     <br/>Add a statsd call to an app, write to graphite from a cron, or add a plugin to your monitoring agent.  Give it a name and done!
     <br/><i>Not so fast!</i>
-    <br/>How often will someone need this data in visualisations, processing or alerting?  How quick will they find it?  How often will somebody wonder what the metric means?  So much information about the metric is available when adding the metric, yet gets dumbed down or not included.
+    <br/>How often will someone need this data in visualizations, processing or alerting?  How quick will they find it?  How often will somebody wonder what the metric means?  So much information about the metric is available when adding the metric, yet gets dumbed down or not included.
     Diving in code and asking around when all you want to do is graph data you know you have, is cumbersome.
     <br/>
     <b>Metrics 2.0 aims to retain all information</b> so that metrics self-describe themselves and are more easily found and understood.
     </p>
 
-    <h3>Standardisation</h3>
+    <h3>Standardization</h3>
     <p>
-    Standardisation enables compatibility between tools, easier searching for metrics, automatic data conversion and more.
+    Standardization enables compatibility between tools, easier searching for metrics, automatic data conversion and more.
     Imagine the ability to swap out monitoring agents without hassle or a dashboard automatically processing data to be in the requested unit.
     </p>
 
     <h3>orthogonal tag space</h3>
     <p>
-    Being limited to strings for metric identifiers (even when modeled in a tree like graphite) can be very limiting when trying to use several different metrics in the same information need.  There is simply no way to organise an entire tree of metrics from different apps and environments in a way that's optimal and allows all correlations and aggregations.  You can't even predict all correlations that somebody might want to do in the future.  Some systems add tags, which help, but only for a handfull of properties, which diminishes their value.
-    <b>A user should be able to corelate on, and aggregate across any chosen dimension[s]</b>, and the only way to enable this, is by using orthogonal dimensions, i.e. a independent tag key/value pairs.
+    Being limited to strings for metric identifiers (even when modeled in a tree like graphite) can be very limiting when trying to use several different metrics in the same information need.  There is simply no way to organize an entire tree of metrics from different apps and environments in a way that's optimal and allows all correlations and aggregations.  You can't even predict all correlations that somebody might want to do in the future.  Some systems add tags, which help, but only for a handful of properties, which diminishes their value.
+    <b>A user should be able to correlate on, and aggregate across any chosen dimension[s]</b>, and the only way to enable this, is by using orthogonal dimensions, i.e. a independent tag key/value pairs.
     </p>
 
     <h3>this also means...</h3>
@@ -105,15 +105,15 @@ extrinsic: {
     Sometimes we want to include information about a metric that's not part of the metric identity.
     <b>Extrinsic properties allow to include information about a metric, which might change, without changing the metric identifier</b>.
     I.e. it's metadata.  Some examples:  You can include the source of a metric (filename and line number), so you know who to contact in case 
-    the metric source goes berzerk.
+    the metric source goes berserk.
     You can include which agent the data is coming from, without being forced to recreate graphs when you switch to a different agent.
     You can even include comments if the tags are not sufficient.
     </p>
 
-    <h3>Automatically build visualisations and processing/alerting rules with minimal work</h3>
+    <h3>Automatically build visualizations and processing/alerting rules with minimal work</h3>
     <p>
     If metrics describe themselves, and do so in a standardized way, does that mean that advanced dashboards and processing engines
-    can leverage this to build visualisations or alerting rules automatically? <i>Yes it does!</i>
+    can leverage this to build visualizations or alerting rules automatically? <i>Yes it does!</i>
     <a href="http://vimeo.github.io/graph-explorer/">Graph-Explorer</a> is a graphite dashboard that does this:
     For any given information need, expressed as a query, it will automatically generate graph definitions and alerting rules, it takes
     care of fetching the metrics matching given conditions, doing aggregations, grouping and processing (such as unit conversion, scaling, deriving/integrating).  It can even automatically fill in the graph title, y-axis labels and legend entries and apply sensible coloring, by looking at the metric tags and which of them they have in common on a graph vs which set them apart from each other.
@@ -121,7 +121,7 @@ extrinsic: {
 
     <h3>There's more!</h3>
     <p>
-    There's some more interesting benefits, related to rollups, correctness of visualisations.
+    There's some more interesting benefits, related to rollups, correctness of visualizations.
     Check out <a href="/media">media</a> to learn more.
     </p>
 

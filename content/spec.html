@@ -29,7 +29,7 @@ In simple protocols like the carbon protocol, we can serialize the structured me
     <li>An <b>extrinsic</b> tag provides additional information about the metric.  changes in this set doesn't change the metric identity</li>
     <li>There are no specific requirements of order of tags.  For intrinsic tags, pick an order and stick with it, otherwise the metric id will change</li>
     <li>In metrics storage databases we'll typically reference the timeseries by a key. If this is the serialized set of intrinsic tags of the metric2.0, things are clearer when working with the raw data, although you could also use another key and keep an explicit mapping.  As long as you somehow associate the structured data model (see below) with the timeseries</li>
-    <li>The words that you'ld typically put in your metric identifier, should become tag values</li>
+    <li>The words that you'd typically put in your metric identifier, should become tag values</li>
     <li>Tag values should get a tag key.  The key basically describes the dimension/property</li>
     <li>Try to come up with a short, but descriptive and fitting key.  Keys are useful for specifying aggregations, grouping and filtering.  If you can't, you can leave out the key.  it will be automatically assigned (n1, n2, ...) so that you can query for 'avg by n2' etc</li>
     <li><b>A unit tag is mandatory</b>.  See <a href="#units">units</a></li>
@@ -65,14 +65,14 @@ extrinsic: {
 
 <ul>
     <li>metrics should be self describing</li>
-    <li>characters that should be allowed: (at least) alphanumerics (case sensitive), underscore, hypen, dot, forward slash and equals sign. (units can contain slash, ip/hostname can contain dot)</li>
+    <li>characters that should be allowed: (at least) alphanumerics (case sensitive), underscore, hyphen, dot, forward slash and equals sign. (units can contain slash, ip/hostname can contain dot)</li>
 </ul>
 
 <br/>
 <br/>
 <h3>Tagging guidelines</h3>
 Recommendations for units and other tag keys and values follow below.
-<br/>note that in general, try to keep everything lowercase except where uppercasing is sensible (e.g. units and prefixes that use capitals (M, B,...), or commonly capitalized terms such as http verbs (GET/PUT).
+<br/>note that in general, try to keep everything lowercase except where upper casing is sensible (e.g. units and prefixes that use capitals (M, B,...), or commonly capitalized terms such as http verbs (GET/PUT).
 <br/>the lists below are designed to be widely applicable (i.e. across companies)
 
 <br/>
@@ -99,7 +99,7 @@ The extensions are designed to be intuitive (i.e. as commonly used by <a href="h
 <tr><td>Warn</td><td>warnings</td></tr>
 
 <tr><td>Conn</td><td>connections</td></tr>
-<tr><td>Event</td><td>events (tcp events etc)</td></tr>
+<tr><td>Event</td><td>events (TCP events etc)</td></tr>
 <tr><td>Ino</td><td>inodes</td></tr>
 <tr><td>Email</td><td>email messages</td></tr>
 <tr><td>Jiff</td><td>jiffies (i.e. for cpu usage)</td></tr>
@@ -153,7 +153,7 @@ Carbon tagger and structured_metrics will set the unit to Mb/s whether the unit 
     <tr><td>server</td><td>physical or virtual machine ('system' or 'host' seem a tad too vague)</td></tr>
     <tr><td>http_method</td><td>the http method. like PUT, GET, etc.</td></tr>
     <tr><td>http_code</td><td>200, 404, etc</td></tr>
-    <tr><td>device</td><td>blockdevice, network device, ...</td></tr>
+    <tr><td>device</td><td>block device, network device, ...</td></tr>
     <tr><td>unit</td><td>the unit something is expressed in (b/s, MB, etc)</td></tr>
     <tr><td>what</td><td>the thing being measured, if the other tags (unit, type, ..) are not sufficient or appropriate.</td></tr>
     <tr><td>type</td><td>further describe the metric.  type is a very generic word, only use it if you really don't know anything better.</td></tr>
@@ -169,7 +169,7 @@ Carbon tagger and structured_metrics will set the unit to Mb/s whether the unit 
     
     
     </td></tr>
-<tr><td>bin_upper</td><td>if your metrics are separated into bins by some numeric value, upperlimit of a bin (like (statsd) histograms)
+<tr><td>bin_upper</td><td>if your metrics are separated into bins by some numeric value, upper limit of a bin (like (statsd) histograms)
     <tr><td>direction</td><td> in/out (not 'tx' or 'rx', more consistent)</td></tr>
     <tr><td>target_type</td><td>aka metric type.
         {{ template "chrome/value-table-start.html" . }}
