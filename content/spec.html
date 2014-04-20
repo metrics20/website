@@ -26,6 +26,14 @@
             <li><a href="#keys_and_vals">Keys and values to use</a></li>
         </ul>
     </li>
+    <li>
+        <a href="#examples">Examples</a>
+        <ul>
+            <li><a href="#example_swift_proxy_timings">Swift proxy-server timings</a></li>
+            <li><a href="#example_disk_space">Disk space</a></li>
+            <li><a href="#example_page_req_statsdaemon">Page request tracking using statsdaemon</a></li>
+        </ul>
+    </li>
 </ul>
 
 <br/>
@@ -204,12 +212,115 @@ Carbon tagger and structured_metrics will set the unit to Mb/s whether the unit 
     <ul>
         <li>something in percent. do we add _pct to the unit or target_type tag? or normalized=100?</li>
     </ul>
-    {{ template "chrome/symbol-table-end.html" . }}
 
+
+<br/>
+<h3 id="examples">Examples</h3>
+<h4 id="example_swift_proxy_timings">Swift proxy-server timings</h4>
+Here's an example of using a <b>traditional, existing metric and using structured_metrics to turn it into a metric 2.0</b>.
+<div class="row">
+<div class="col-lg-12">
+<br/>
+This is an output from statsd, going into our storage system, graphite:
+    <pre>
+stats.timers.dfsproxy1.proxy-server.object.GET.206.timing.upper_90 164 1234567890
+    </pre>
+</div>
+<div class="col-lg-12">
+Structured_metrics will upgrade the metric to (and store it in the database):
+          <pre>
+{
+    what=response_time
+    http_code=206
+    http_method=GET
+    server=dfsproxy1
+    service=proxy-server
+    stat=upper_90
+    swift_type=object
+    target_type=gauge
+    unit=ms
+}
+</div>
+</div>
+This allows dashboards such as Graph-Explorer to automatically build graphs to answer queries like
+"show me the upper 90th percentile of response time, in ms of swift proxy-servers, on a graph per http method, averaged across all servers, on a line per swift type and http code".
+<br/>("stat=upper_90 response unit=ms proxy-server group by http_method avg by server")
+
+<h4 id="example_disk_space">Disk space</h4>
+Here's an example of using a hypothetical monitoring agent "diamond2", to <b>submit native metrics 2.0</b> to track used disk space on a given mountpoint (file system) on a given server.
+<div class="row">
+        <div class="col-lg-12">
+<br/>
+The agent emits
+            <pre>
+mountpoint=/srv/node/dfs3 what=disk_space server=dfs4 target_type=gauge type=used unit=B   agent=diamond2 48929424224 1234567890
+            </pre>
+      </div>
+      <div class="col-lg-12">
+Carbon-tagger (or structured_metrics) will put in the database:
+          <pre>
+id=mountpoint=/srv/node/dfs3,what=disk_space,server=dfs4,target_type=gauge,type=used,unit=B
+{
+    mountpoint=/srv/node/dfs3
+    what=disk_space
+    server=dfs4
+    target_type=gauge
+    type=used
+    unit=B
+}
+meta: {
+    agent=diamond2
+}
+          </pre>
+</div>
+  </div>
+This allows dashboards such as Graph-Explorer to automatically build graphs to answer queries like
+"show me how the amount of used space, summed across all mountpoints on a server, changes over time, in GB/hour, per server"
+<br/>("unit=GB/h used sum by mountpoint group by server")
+<br/>Note that if we switch to a different agent, the id will stay the same.
+
+<h4 id="example_page_req_statsdaemon">Page request tracking using statsdaemon</h4>
+This time, not only do we use <b>native metrics 2.0, we'll actually use statsdaemon to aggregate our metrics and express the aggregation using metrics 2.0</b>.
+<div class="row">
+        <div class="col-lg-12">
+<br/>
+Let's say we have a PHP codebase of a website, firing off statsd[aemon] messages (the metric "key" is native metrics 2.0) to track page requests, like so:
+
+            <pre>
+Statsd::inc("site=mydomain unit=Req server=web12");
+            </pre>
+      </div>
+        <div class="col-lg-12">
+<br/>
+Our aggregator, statsdaemon will calculate how many of these it sees per minute, and forward the rate per second into graphite, like so:
+
+            <pre>
+site=mydomain target_type=rate unit=Req/s server=web12  agent=statsdaemon1 234 1234567890
+            </pre>
+      </div>
+      <div class="col-lg-12">
+Carbon-tagger (or structured_metrics) will put in the database:
+          <pre>
+id=site=mydomain,target_type=rate,unit=Req/s
+{
+    site=mydomain
+    target_type=rate
+    unit=Req/s
+    server=web12
+}
+meta: {
+    agent=statsdaemon1
+}
+          </pre>
+</div>
+  </div>
+This allows dashboards such as Graph-Explorer to automatically build graphs to answer queries like
+"show me how many page requests per hour every site does (summed across all servers)".
+<br/>("unit=Req/h sum by server")
+<br/>Note that if we switch to a different agent, the id will stay the same.
 
           {{ template "chrome/footer.html" . }}
-
-    </div>
+    </div> <!-- container -->
   </body>
 </html>
 
