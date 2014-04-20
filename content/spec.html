@@ -15,10 +15,21 @@
 
 <h2>Metrics 2.0 spec</h2>
 
+<br/>
+<ul>
+    <li><a href="#wire_format">Metrics 2.0 as a wire format</a></li>
+    <li><a href="#conceptual">Metrics 2.0 as conceptual data-model</a></li>
+    <li>
+        <a href="#tagging_guidelines">Tagging guidelines</a>
+        <ul>
+            <li><a href="#units">Units</a></li>
+            <li><a href="#keys_and_vals">Keys and values to use</a></li>
+        </ul>
+    </li>
+</ul>
 
 <br/>
-<br/>
-<h3>Metrics 2.0 as a wire format</h3>
+<h3 id="#wire_format">Metrics 2.0 as a wire format</h3>
 In simple protocols like the carbon protocol, we can serialize the structured metric in a string representation that's compatible with graphite.
 <pre>
     tags  meta_tags value timestamp
@@ -37,7 +48,7 @@ In simple protocols like the carbon protocol, we can serialize the structured me
 
 <br/>
 <br/>
-<h3>Metrics 2.0 as conceptual data-model</h3>
+<h3 id="#conceptual">Metrics 2.0 as conceptual data-model</h3>
 This is how we typically represent metrics 2.0
     <div class="row">
         <div class="col-lg-6">
@@ -70,14 +81,14 @@ meta: {
 
 <br/>
 <br/>
-<h3>Tagging guidelines</h3>
+<h3 id="tagging_guidelines">Tagging guidelines</h3>
 Recommendations for units and other tag keys and values follow below.
 <br/>note that in general, try to keep everything lowercase except where upper casing is sensible (e.g. units and prefixes that use capitals (M, B,...), or commonly capitalized terms such as http verbs (GET/PUT).
 <br/>the lists below are designed to be widely applicable (i.e. across companies)
 
 <br/>
 <br/>
-<h3 id="units">Units</h3>
+<h4 id="units">Units</h4>
 The unit tag is one of the most import tags.  It represents the unit of magnitude of the measured quantity.  It's important that every metric
 has the correct value for the unit tag.
 <br/>Units in metrics 2.0 are <a href="http://en.wikipedia.org/wiki/International_System_of_Units">SI</a> units (base and derived) and <a href="http://en.wikipedia.org/wiki/Binary_prefix">IEC</a> units, extended with units commonly used in IT (the "extensions").
@@ -148,7 +159,7 @@ Carbon tagger and structured_metrics will set the unit to Mb/s whether the unit 
 
 <br/>
 <br/>
-<h3>Keys and values to use</h3>
+<h4 id="keys_and_vals">Keys and values to use</h4>
     {{ template "chrome/key-table-start.html" . }}
     <tr><td>server</td><td>physical or virtual machine ('system' or 'host' seem a tad too vague)</td></tr>
     <tr><td>http_method</td><td>the http method. like PUT, GET, etc.</td></tr>
