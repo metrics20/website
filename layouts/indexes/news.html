@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Metrics 2.0: an emerging set of standards around metrics</title>
+    {{ template "partials/meta.html" . }}
+  </head>
+  <body>
+    {{ template "partials/header.html" . }}
+
+    <div class="container">
+
+        <p>&nbsp;
+        </p>
+        <p>&nbsp;
+        </p>
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 blog-main">
+
+                    <div class="row">
+			            {{ range $i, $el := first 10 .Data.Pages }}
+                        <div class="col-md-9 col-sm-9">
+                            <article>
+                                <header>
+                                    <h2>{{ .Title }}</h2>
+                                    <span class="meta">{{ .Date.Format "Mon, Jan 2, 2006" }}</span>
+                                    <hr>
+                                </header>
+                                <div class="body">
+                                    {{ .Content }}
+                                </div>
+                            </article>
+                        </div>
+			            {{ end }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {{ template "partials/footer.html" . }}
+
+    </div>
+  </body>
+</html>

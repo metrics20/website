@@ -1,6 +1,0 @@
-layoutdir: "layouts"
-publishdir: "public"
-indexes:
-  category: "categories"
-baseurl: "http://metrics2.org"
-title: "Hugo Blog Template for GitHub Pages"

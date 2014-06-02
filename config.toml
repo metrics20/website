@@ -1,0 +1,12 @@
+layoutdir = "layouts"
+publishdir = "public"
+[indexes]
+#  tag = "tags"
+baseurl = "http://metrics2.org"
+title= "Metrics 2.0: an emerging set of standards around metrics"
+
+languageCode = "en-us"
+copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
+
+[author]
+    name = "Dieter Plaetinck"
