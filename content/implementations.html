@@ -16,20 +16,24 @@
 
 <h2>Tools that currently support metrics 2.0</h2>
 
-<h4>Statsdaemon</h4>
+<h4>Statsdaemon (metric aggregator)</h4>
 <a href="https://github.com/vimeo/statsdaemon">vimeo/statsdaemon</a> is a statsd-like aggregator.
 If it detects input metrics to be in metrics 2.0 format, it will report the output in metrics 2.0 format too.
 So for example a metric with metric_type=count and unit=Req will result in a computed rate metric with tags metric_type=rate and unit=Req/s.
 
-<h4>Graph-Explorer</h4>
+<h4>Graph-Explorer (Graphite dashboard)</h4>
 <a href="http://vimeo.github.io/graph-explorer">Graph-Explorer</a> is the prototypical metrics 2.0 dashboard implementation
 for graphite.
 It leverages a database of metrics 2.0, which can be populated by carbon-tagger or structured_metrics (see below).
 For given input queries, it takes care of the retrieving of metrics, grouping metrics into graphs, aggregations, processing (unit conversion etc), setting graph titles and labels, etc; and provides complete interactive graphs, dashboards and alerting rules based with very little manual work.
 
+<h4>Metricsd (agent)</h4>
+<a href="https://github.com/josegonzalez/metricsd">metricsd</a>:
+Inspired by diamond, golang metrics collection agent with native metrics2.0 support.
+
 <h4>Carbon-tagger</h4>
 <a href="https://github.com/vimeo/carbon-tagger">Carbon-tagger</a> is a service that you can put in your metrics pipeline,
-it automatically maintains a database of all metrics 2.0 it sees.
+it automatically maintains a database of all metrics 2.0 it sees, so that you can query it, e.g. with Graph-Explorer.
 
 <h4>Structured Metrics</h4>
 <a href="https://github.com/vimeo/graph-explorer/tree/master/graph_explorer/structured_metrics">structured_metrics</a> is
