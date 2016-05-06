@@ -1,3 +1,4 @@
+baseurl = "http://www.metrics20.org/"
 layoutdir = "layouts"
 publishdir = "public"
 [indexes]
