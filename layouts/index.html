@@ -42,7 +42,7 @@ collectd.dfs1.df.srv-node-dfs10.df-complex.used
           <pre>
 diskspace._srv_node_dfs10.byte_used
 {
-    server: dfs1
+    host: dfs1
 }
           </pre>
         </div>
@@ -50,7 +50,7 @@ diskspace._srv_node_dfs10.byte_used
           <h4>Metrics 2.0</h4>
           <pre>
 {
-    server: dfs1
+    host: dfs1
     what: diskspace
     mountpoint: srv/node/dfs10
     unit: B
@@ -77,7 +77,7 @@ meta: {
     <h3>Retain information, self-describing metrics</h3>
     <p>
     Generating timeseries metrics is easy.
-    <br/>Add a statsd call to an app, write to graphite from a cron, or add a plugin to your monitoring agent.  Give it a name and done!
+    <br/>Add a statsd call to an app, write to graphite from a cron, or add a plugin to your monitoring agent.  Give it a name and done! Or plug in another monitoring system of your choice.
     <br/><i>Not so fast!</i>
     <br/>How often will someone need this data in visualizations, processing or alerting?  How quick will they find it?  How often will somebody wonder what the metric means?  So much information about the metric is available when adding the metric, yet gets dumbed down or not included.
     Diving in code and asking around when all you want to do is graph data you know you have, is cumbersome.
@@ -99,7 +99,7 @@ meta: {
 
     <h3>this also means...</h3>
     <p>
-    That dashboard apps can automatically provide dashboards (for example, a mysql dashboard for every server by looking at host=X and service=mysql).  That you can search for metrics on any of their attributes, that you can group them into graphs or aggregate them by any given dimensions (tag keys).
+    That dashboard apps can automatically provide dashboards (for example, a mysql dashboard for every host by looking at host=X and service=mysql).  That you can search for metrics on any of their attributes, that you can group them into graphs or aggregate them by any given dimensions (tag keys).
     </p>
 
     <h3>Support for metadata not part of metric identity</h3>
@@ -118,7 +118,7 @@ meta: {
     <p>
     If metrics describe themselves, and do so in a standardized way, does that mean that advanced dashboards and processing engines
     can leverage this to build visualizations or alerting rules automatically? <i>Yes it does!</i>
-    <a href="http://vimeo.github.io/graph-explorer/">Graph-Explorer</a> is a graphite dashboard that does this:
+    <a href="http://vimeo.github.io/graph-explorer/">Graph-Explorer</a> is an example dashboarding tool (for graphite) that does this:
     For any given information need, expressed as a query, it will automatically generate graph definitions and alerting rules, it takes
     care of fetching the metrics matching given conditions, doing aggregations, grouping and processing (such as unit conversion, scaling, deriving/integrating).  It can even automatically fill in the graph title, y-axis labels and legend entries and apply sensible coloring, by looking at the metric tags and which of them they have in common on a graph vs which set them apart from each other.
     </p>

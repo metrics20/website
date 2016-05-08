@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>Metrics 2.0: Spec</title>
-    {{ template "partials/meta.html" . }}
+    {{ partial "meta.html" . }}
   </head>
   <body>
-    {{ template "partials/header.html" . }}
+    {{ partial "header.html" . }}
     <div class="container">
       <br/>
       <br/>
-      {{ template "partials/spec/spec.html" . }}
-      {{ template "partials/footer.html" . }}
-    </div> <!-- container -->
+      {{ partial "spec/spec.md" | print | markdownify }}
+      {{ partial "footer.html" . }}
+    </div>
   </body>
 </html>

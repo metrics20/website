@@ -9,21 +9,47 @@
                       {{ template "partials/header.html" . }}
                           <div class="container">
 
-
                       <br/>
                       <br/>
+		      <h2>Foreword</h2>
+		      You'll notice that almost anything mentioned here are extensions for Graphite.  This is because metrics2.0 originated out of that ecosystem.
+		      However by now metrics2.0 aims to cover IT/monitoring systems in general, not just graphite.
 
+                      <br/>
+		      <h2> Protocol implementations</h2>
+
+<h3>carbon2.0</h3>
+
+In simple protocols like the carbon protocol, we can serialize the structured metric in a string representation that's compatible with graphite:
+
+<pre>
+intrinsic_tags  meta_tags value timestamp
+
+site=mydomain mtype=rate unit=Req/s host=web12  agent=statsdaemon1 234 1234567890
+</pre>
+
+<ul>
+    <li>tags are space separated.  Note double space to separate tags from meta_tags</li>
+    <li>There are no specific requirements of order of tags.  For intrinsic tags, pick an order and stick with it, otherwise the metric id will change</li>
+    <li>In metrics storage databases we'll typically reference the timeseries by a key. If this is the serialized set of intrinsic tags of the metric2.0, things are clearer when working with the raw data, although you could also use another key and keep an explicit mapping.  As long as you somehow associate the structured data model with the timeseries</li>
+    <li>If you can't, you can leave out the key.  it will be automatically assigned (n1, n2, ...) so that you can query for 'avg by n2' etc</li>
+</ul>
+
+
+<h3>raintank-messagepack</h3>
+
+<a href="https://www.raintank.io">raintank.io</a> is building an open source metrics2.0 protocol in Golang using messagepack encoding.
+It's a work in progress, currently undocumented and can be currently <a href="https://github.com/raintank/raintank-metric">here</a>.
 
 <h2>Tools that currently support metrics 2.0</h2>
 
 <h4>Statsdaemon (metric aggregator)</h4>
-<a href="https://github.com/vimeo/statsdaemon">vimeo/statsdaemon</a> is a statsd-like aggregator.
+<a href="https://github.com/vimeo/statsdaemon">vimeo/statsdaemon</a> is a statsd-like aggregator for graphite.
 If it detects input metrics to be in metrics 2.0 format, it will report the output in metrics 2.0 format too.
 So for example a metric with metric_type=count and unit=Req will result in a computed rate metric with tags metric_type=rate and unit=Req/s.
 
 <h4>Graph-Explorer (Graphite dashboard)</h4>
-<a href="http://vimeo.github.io/graph-explorer">Graph-Explorer</a> is the prototypical metrics 2.0 dashboard implementation
-for graphite.
+<a href="http://vimeo.github.io/graph-explorer">Graph-Explorer</a> is the prototypical metrics 2.0 dashboard implementation for graphite.
 It leverages a database of metrics 2.0, which can be populated by carbon-tagger or structured_metrics (see below).
 For given input queries, it takes care of the retrieving of metrics, grouping metrics into graphs, aggregations, processing (unit conversion etc), setting graph titles and labels, etc; and provides complete interactive graphs, dashboards and alerting rules based with very little manual work.
 
@@ -32,12 +58,12 @@ For given input queries, it takes care of the retrieving of metrics, grouping me
 Inspired by diamond, golang metrics collection agent with native metrics2.0 support.
 
 <h4>Carbon-tagger</h4>
-<a href="https://github.com/vimeo/carbon-tagger">Carbon-tagger</a> is a service that you can put in your metrics pipeline,
+<a href="https://github.com/vimeo/carbon-tagger">Carbon-tagger</a> is a service that you can put in your carbon2.0 pipeline,
 it automatically maintains a database of all metrics 2.0 it sees, so that you can query it, e.g. with Graph-Explorer.
 
 <h4>Structured Metrics</h4>
 <a href="https://github.com/vimeo/graph-explorer/tree/master/graph_explorer/structured_metrics">structured_metrics</a> is
-a small python utility that comes with Graph-Explorer, it updates metrics 2.0 in a database by parsing legacy metrics.
+a small python utility that comes with Graph-Explorer, it updates metrics 2.0 in a database by parsing legacy graphite metrics.
 I.e. you can use this to keep using your old, existing plugins as metrics 2.0.
 It comes with plugins for diamond, collectd and openstack, it's easy to add your own.
 
